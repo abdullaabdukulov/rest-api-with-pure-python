@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Book API</title>
-  </head>
-  <body>
-    <h1>Book API</h1>
-    <p>This is a simple REST API for managing books. It provides basic CRUD (Create, Read, Update, Delete) operations for books.</p>
+
+<h1>Book API</h1>
+<p>This is a simple REST API for managing books. It provides basic CRUD (Create, Read, Update, Delete) operations for books.</p>
 <h2>Getting started</h2>
 <p>To use the API, simply run the main.py file to start the server at http://localhost:8000.</p>
 
@@ -49,4 +43,3 @@
 
 <h3>DELETE /books/{id}</h3>
 <p>To delete an existing book, send a DELETE request to /books/{id}, where {id} is the ID of the book you want to delete. If the book exists, the API will delete the book and return a JSON response containing a success message. If the book does not exist,
-</html>

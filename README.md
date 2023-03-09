@@ -35,23 +35,22 @@ python main.py
 <p1>Example response:</p1>
 
 ```json
-[
-    {
-        "id": 1,
-        "title": "The Great Gatsby",
-        "genre": "Fiction",
-        "author": "F. Scott Fitzgerald",
-        "price": 9.99
-    },
-    {
-        "id": 2,
-        "title": "To Kill a Mockingbird",
-        "genre": "Fiction",
-        "author": "Harper Lee",
-        "price": 7.99
-    },
-    ...
-]
+
+{
+    "id": 1,
+    "title": "The Great Gatsby",
+    "genre": "Fiction",
+    "author": "F. Scott Fitzgerald",
+    "price": 9.99
+},
+{
+    "id": 2,
+    "title": "To Kill a Mockingbird",
+    "genre": "Fiction",
+    "author": "Harper Lee",
+    "price": 7.99
+},
+...
 ```
 
 <h3>GET /books/{id}</h3>

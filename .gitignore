@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+./Bookmarks/books.db
 .Python
 build/
 develop-eggs/

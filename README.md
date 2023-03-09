@@ -1,45 +1,117 @@
-
 <h1>Book API</h1>
-<p>This is a simple REST API for managing books. It provides basic CRUD (Create, Read, Update, Delete) operations for books.</p>
-<h2>Getting started</h2>
-<p>To use the API, simply run the main.py file to start the server at http://localhost:8000.</p>
+<p>This is a simple RESTful API for managing books. The API is built using Python and the HTTP server is provided by the 'http.server' library.</p>
+<h2>Installation</h2>
+<p>To run the API, you need to have Python 3.7 or later installed on your system.</p>
+<ol>
+<li>Clone this repository:<br>
 
-<h2>Available Endpoints</h2>
-<ul>
-  <li>GET /books - Get a list of all books.</li>
-  <li>GET /books/{id} - Get details of a specific book by ID.</li>
-  <li>POST /books - Create a new book.</li>
-  <li>PUT /books/{id} - Update an existing book by ID.</li>
-  <li>DELETE /books/{id} - Delete an existing book by ID.</li>
-</ul>
 
-<h2>API Usage</h2>
+```bash
+git clone https://github.com/abdullaabdukulov/rest-api-with-pure-python.git
+```
 
-<h3>GET /books</h3>
-<p>To get a list of all books, send a GET request to /books. The API will return a JSON response containing an array of book objects.</p>
 
+</li>
+<li>Change directory to the project folder:<br>
+
+```bash
+cd book-api
+```
+
+</li>
+</ol>
+<h2>Usage</h2>
+<p>To start the server, run the following command:</p>
+
+```python
+python main.py
+```
+
+<p>The server will start running on 'http://localhost:8000'.</p>
+
+<h2>API Endpoints<h2>
+<h3>GET /books<h3>
+<p1>Returns a list of all books in the database.</p1>
+<p1>Example response:</p1>
+```json
+[
+    {
+        "id": 1,
+        "title": "The Great Gatsby",
+        "genre": "Fiction",
+        "author": "F. Scott Fitzgerald",
+        "price": 9.99
+    },
+    {
+        "id": 2,
+        "title": "To Kill a Mockingbird",
+        "genre": "Fiction",
+        "author": "Harper Lee",
+        "price": 7.99
+    },
+    ...
+]
+```
 <h3>GET /books/{id}</h3>
-<p>To get details of a specific book, send a GET request to /books/{id}, where {id} is the ID of the book you want to retrieve. If the book exists, the API will return a JSON response containing the book object. If the book does not exist, the API will return a 404 error.</p>
+<p>Returns the details of a single book.</p>
+<p>Example response:</p>
 
-<h3>POST /books</h3>
-<p>To create a new book, send a POST request to /books with the following parameters:</p>
-<ul>
-  <li>title (required) - The title of the book.</li>
-  <li>genre (optional) - The genre of the book.</li>
-  <li>author (optional) - The author of the book.</li>
-  <li>price (optional) - The price of the book.</li>
-</ul>
-<p>The API will return a JSON response containing the ID of the newly created book.</p>
+```json
+{
+    "id": 1,
+    "title": "The Great Gatsby",
+    "genre": "Fiction",
+    "author": "F. Scott Fitzgerald",
+    "price": 9.99
+}
+```
 
-<h3>PUT /books/{id}</h3>
-<p>To update an existing book, send a PUT request to /books/{id}, where {id} is the ID of the book you want to update. The request should contain the following parameters:</p>
-<ul>
-  <li>title (optional) - The updated title of the book.</li>
-  <li>genre (optional) - The updated genre of the book.</li>
-  <li>author (optional) - The updated author of the book.</li>
-  <li>price (optional) - The updated price of the book.</li>
-</ul>
-<p>If the book exists, the API will update the book with the new values and return a JSON response containing a success message. If the book does not exist, the API will return a 404 error.</p>
+<h3>POST /books </h3>
+<p>Adds a new book to the database.</p>
 
-<h3>DELETE /books/{id}</h3>
-<p>To delete an existing book, send a DELETE request to /books/{id}, where {id} is the ID of the book you want to delete. If the book exists, the API will delete the book and return a JSON response containing a success message. If the book does not exist,
+```json
+{
+    "title": "1984",
+    "genre": "Science Fiction",
+    "author": "George Orwell",
+    "price": 6.99
+}
+```
+
+<p>Example response:</p>
+
+```json
+{
+    "id": "8f7062ee-be3d-11ed-a7a6-28ec950a7752"
+}
+```
+<h1>PUT /books/{id}</h1>
+<p>Updates the details of a single book.</p>
+<p>Example request body:</p>
+
+```json
+{
+    "title": "The Great Gatsby",
+    "genre": "Literary Fiction",
+    "author": "F. Scott Fitzgerald",
+    "price": 11.99
+}
+```
+<p>Example response:</p>
+
+```json
+{
+    "id": "8f7062ee-be3d-11ed-a7a6-28ec950a7752"
+}
+```
+
+<h2>DELETE /books/{id}</h2>
+<p>Deletes a single book from the database.</p>
+<p>Example response:</p>
+
+```http request
+HTTP/1.1 204 No Content
+```
+
+<h2>License</h2>
+<p>This project is licensed under the MIT License. See the LICENSE file for details.</p>

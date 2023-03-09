@@ -33,6 +33,7 @@ python main.py
 <h3>GET /books<h3>
 <p1>Returns a list of all books in the database.</p1>
 <p1>Example response:</p1>
+
 ```json
 [
     {
@@ -52,6 +53,7 @@ python main.py
     ...
 ]
 ```
+
 <h3>GET /books/{id}</h3>
 <p>Returns the details of a single book.</p>
 <p>Example response:</p>

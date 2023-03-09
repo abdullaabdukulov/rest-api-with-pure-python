@@ -4,11 +4,11 @@ from config.settings import Config
 
 
 class Book:
-    def __init__(self, title, genre, author_id, price, id=None):
+    def __init__(self, title, genre, author, price, id=None):
         self.id = id if id else str(uuid.uuid1())
         self.title = title
         self.genre = genre
-        self.author_id = author_id
+        self.author = author
         self.price = price
 
     def save(self):
@@ -16,9 +16,9 @@ class Book:
         try:
             curs = conn.cursor()
             curs.execute(
-                "INSERT INTO books (id, title, genre, author_id, price) VALUES (?, ?, ?, ?, ?)",
+                "INSERT INTO books (id, title, genre, author, price) VALUES (?, ?, ?, ?, ?)",
                 (
-                    self.id, self.title, self.genre, self.author_id, self.price
+                    self.id, self.title, self.genre, self.author, self.price
                 )
             )
             conn.commit()
@@ -40,6 +40,20 @@ class Book:
         finally:
             conn.close()
 
+    def update(self):
+        conn = connect(Config.DATABASE_PATH)
+        try:
+            curs = conn.cursor()
+            curs.execute(
+                "UPDATE books SET title=?, genre=?, author=?, price=? WHERE id=?",
+                (self.title, self.genre, self.author, self.price, self.id)
+            )
+            conn.commit()
+        except Exception as ex:
+            print('Error updating book: ', ex)
+        finally:
+            conn.close()
+
     @staticmethod
     def create_table():
         conn = connect(Config.DATABASE_PATH)
@@ -50,7 +64,7 @@ class Book:
                     id TEXT PRIMARY KEY,
                     title TEXT,
                     genre TEXT,
-                    author_id TEXT,
+                    author TEXT,
                     price REAL
                 )
             """)
@@ -67,10 +81,10 @@ class Book:
         try:
             curs = conn.cursor()
             curs.execute(
-                "SELECT id, title, genre, author_id, price FROM books"
+                "SELECT id, title, genre, author, price FROM books"
             )
             books = curs.fetchall()
-            return [{'id': book[0], 'title': book[1], 'genre': book[2], 'author_id': book[3], 'price': book[4]} for book
+            return [{'id': book[0], 'title': book[1], 'genre': book[2], 'author': book[3], 'price': book[4]} for book
                     in books]
         except Exception as ex:
             print('Error getting books: ', ex)
@@ -83,11 +97,11 @@ class Book:
         try:
             curs = conn.cursor()
             curs.execute(
-                "SELECT id, title, genre, author_id, price FROM books WHERE id=?", (id,)
+                "SELECT id, title, genre, author, price FROM books WHERE id=?", (id,)
             )
             book = curs.fetchone()
             if book:
-                return {'id': book[0], 'title': book[1], 'genre': book[2], 'author_id': book[3], 'price': book[4]}
+                return {'id': book[0], 'title': book[1], 'genre': book[2], 'author': book[3], 'price': book[4]}
             return None
         except Exception as ex:
             print('Error getting book: ', ex)

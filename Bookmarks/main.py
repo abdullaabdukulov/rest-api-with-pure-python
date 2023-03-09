@@ -33,7 +33,7 @@ class BookHandler(BaseHTTPRequestHandler):
                 id=book_data.get('id', False),
                 title=book_data['title'],
                 genre=book_data['genre'],
-                author_id=book_data['author_id'],
+                author=book_data['author'],
                 price=book_data['price'],
             )
             print(book_data)
@@ -46,18 +46,20 @@ class BookHandler(BaseHTTPRequestHandler):
             self.send_error(404)
 
     def do_PUT(self):
-        if self.path == '/books/':
+        if self.path.startswith('/books/'):
             book_id = self.path.split('/')[-1]
-            book = Book.get_by_id(book_id)
-            if book:
+            book_data = Book.get_by_id(book_id)
+            if book_data:
                 content_length = int(self.headers['Content-Length'])
                 put_data = self.rfile.read(content_length)
                 put_data = json.loads(put_data.decode())
+                book = Book(title=book_data['title'], genre=book_data['genre'],
+                            author=book_data['author'], price=book_data['price'], id=book_data['id'])
                 book.title = put_data['title']
                 book.genre = put_data['genre']
-                book.author_id = put_data['author_id']
+                book.author = put_data['author']
                 book.price = put_data['price']
-                book.save()
+                book.update()
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json')
                 self.send_header('Location', f'/books/{book.id}')
@@ -69,11 +71,14 @@ class BookHandler(BaseHTTPRequestHandler):
             self.send_error(404)
 
     def do_DELETE(self):
-        if self.path == '/books/':
+        if self.path.startswith('/books/'):
             book_id = self.path.split('/')[-1]
             book = Book.get_by_id(book_id)
             if book:
+                book = Book(title=book['title'], genre=book['genre'],
+                            author=book['author'], price=book['price'], id=book['id'])
                 book.delete()
+                print('Book deleted')
                 self.send_response(204)
                 self.end_headers()
             else:
